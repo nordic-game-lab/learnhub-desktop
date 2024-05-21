@@ -8,10 +8,13 @@ if (require('electron-squirrel-startup')) {
 
 const createWindow = () => {
   // Create the browser window.
+  const imagePath =  path.join(__dirname, "..", 'icons/learnhub.png');
+  console.log(imagePath);
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     autoHideMenuBar: true,
+    icon: imagePath,
   });
 
   // and load the index.html of the app.
