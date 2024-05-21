@@ -22,8 +22,7 @@ const createWindow = () => {
 };
 
   if(app.isPackaged){
-    const server = 'https://downloads.nordicgamelab.org';
-    const url = `${server}/update/${process.platform}/${app.getVersion()}`;
+    const url = `https://downloads.nordicgamelab.org/update/${process.platform}/${app.getVersion()}`;
     autoUpdater.setFeedURL({ url });
     setInterval(() => {
       autoUpdater.checkForUpdates()
@@ -34,11 +33,15 @@ const createWindow = () => {
         buttons: ['Restart', 'Later'],
         title: 'Application Update',
         message: process.platform === 'win32' ? releaseNotes : releaseName,
-        detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+        detail: 'A new version has been downloaded. Restart LearnHub to apply the updates.'
       }
       dialog.showMessageBox(dialogOpts).then((returnValue) => {
         if (returnValue.response === 0) autoUpdater.quitAndInstall()
       })
+    })
+    autoUpdater.on('error', (message) => {
+      console.error('There was a problem updating LearnHub. Please try again')
+      console.error(message)
     })
   }
 
