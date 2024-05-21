@@ -15,10 +15,28 @@ const createWindow = () => {
     height: 600,
     autoHideMenuBar: true,
     icon: imagePath,
+    show: false,
   });
-
-  // and load the index.html of the app.
   mainWindow.loadURL('https://learnhub.nordicgamelab.org');
+
+  const splash = new BrowserWindow({ 
+    width: 500, 
+    height: 300, 
+    transparent: true, 
+    frame: false, 
+    alwaysOnTop: true ,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    },
+  });
+  
+  splash.loadFile('html/splash.html');
+  splash.center();
+  setTimeout(function () {
+    splash.close();
+    mainWindow.center();
+    mainWindow.show();
+  }, 5000);
 };
 
   if(app.isPackaged){
