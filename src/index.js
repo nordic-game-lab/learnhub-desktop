@@ -1,4 +1,4 @@
-const { app, autoUpdater, BrowserWindow } = require('electron');
+const { app, autoUpdater, BrowserWindow, ipcMain } = require('electron');
 const path = require('node:path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -20,8 +20,8 @@ const createWindow = () => {
   mainWindow.loadURL('https://learnhub.nordicgamelab.org');
 
   const splash = new BrowserWindow({ 
-    width: 500, 
-    height: 300, 
+    width: 600, 
+    height: 500, 
     transparent: true, 
     frame: false, 
     alwaysOnTop: true ,
@@ -38,6 +38,12 @@ const createWindow = () => {
     mainWindow.show();
   }, 5000);
 };
+
+ipcMain.handle('getAppVersion', async (event, someArgument) => {
+  console.log(someArgument);
+  const result = await app.getVersion();
+  return result
+})
 
   if(app.isPackaged){
     const url = `https://downloads.nordicgamelab.org/update/${process.platform}/${app.getVersion()}`;
@@ -62,6 +68,7 @@ const createWindow = () => {
       console.error(message)
     })
   }
+  console.log(app.getVersion());
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

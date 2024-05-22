@@ -1,8 +1,9 @@
-const { app } = require('electron');
-window.addEventListener('DOMContentLoaded', () => {
-    const replaceText = (selector, text) => {
-      const element = document.getElementById(selector)
-      if (element) element.innerText = text
+const { ipcRenderer, contextBridge } = require('electron');
+
+contextBridge.exposeInMainWorld('version', {
+    app: (func) => {
+        ipcRenderer.invoke('getAppVersion', 'test').then((result) => {
+            func(result);
+        })
     }
-      replaceText(`app-version`, app.getVersion())
-  })
+});

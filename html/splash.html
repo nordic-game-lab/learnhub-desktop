@@ -1,15 +1,17 @@
 <html>
-
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="splash.css">
 </head>
-
 <body>
     <h3>Application Is Starting...</h3>
-    <p>Running Version: v<span id="app-version"></span></p>
+    <p id="app-version"></p>
     <div class="loader"></div>
 </body>
-
-
+<script>
+    window.version.app((data) => {
+        document.getElementById('app-version').innerText = `Running Version: v${data}`;
+        console.log(data);
+    });
+</script>
 </html>
