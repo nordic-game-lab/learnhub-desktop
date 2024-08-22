@@ -6,6 +6,7 @@ jobs:
   build:
     permissions:
       contents: write
+      id-token: write
     strategy:
       matrix:
         os:
@@ -20,8 +21,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Import Secrets
+        uses: Infisical/secrets-action@v1.0.7
+        with:
+          method: "oidc"
+          env-slug: "dev"
+          project-slug: "github-g0zh"
+          identity-id: "1ffe6b17-29ef-47ed-a54c-0912bbe40542"
       - run: npm ci
       - name: Publish app
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{env.NGLBOT}}
         run: npm run publish
