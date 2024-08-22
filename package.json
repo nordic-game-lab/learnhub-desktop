@@ -1,7 +1,7 @@
 {
   "name": "learnhub-desktop",
   "productName": "LearnHub",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "This is the desktop version of learn hub by Nordic Game Lab LLC",
   "main": "src/index.js",
   "scripts": {
